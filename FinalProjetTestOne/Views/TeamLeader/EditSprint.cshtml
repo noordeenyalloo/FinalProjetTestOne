@@ -1,0 +1,80 @@
+﻿@using FinalProjetTestOne.Models.Dto
+@using FinalProjetTestOne.Models.User
+@model UpdateSprintDto
+@{
+    ViewData["Title"] = "Edit";
+    var sp = (Sprint)ViewBag.Sprint;
+}
+<style>
+    textarea {
+        filter: unset;
+    }
+</style>
+
+<div class="card form-card">
+    <div class="card-header card-header-success">
+        <h4 class="card-title">Edit Sprint</h4>
+        <p class="card-category"></p>
+    </div>
+    <div class="card-body">
+        <form asp-action="EditSprint" method="post" enctype="multipart/form-data" class="border px-3 py-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="hidden" asp-for="Id" value="@ViewBag.Sprint.Id" />
+                    <input type="hidden" asp-for="ProjectId" value="@sp.ProjectId" />
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="Title" class="bmd-label-static text-primary">Title</label>
+                        <input type="text" asp-for="Title" value="@sp.Title" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-12" style="font-size:1rem">
+                    <blockquote class="blockquote text-left">
+                        <header>Description</header>
+                        <small class="mb-0" id="copy">@sp.Description</small>
+                        <footer class="blockquote-footer d-flex justify-content-between"><i>click to copy text</i> <a class="btn btn-info" id="btnCopy">Copy Text</a></footer>
+                    </blockquote>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="Description" class="bmd-label-static">Description</label>
+                        <textarea asp-for="Description" class="form-control-file form-control" id="Description" rows="9"></textarea>
+                        
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="StartDate" class="text-primary control-label bmd-label-static">Start Date</label>
+                        <input type="datetime-local" data-bind="@sp.StartDate" asp-for="StartDate" value="@sp.StartDate" data="@sp.StartDate"  class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="EndDate" class="text-primary control-label bmd-label-static">End Date</label>
+                        <input type="datetime-local" asp-for="EndDate" value="@sp.EndDate" class="form-control">
+                    </div>
+                </div>
+
+            </div>
+            <button type="submit" class="btn btn-success pull-right">Edit</button>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>
+<div class="form-group">
+</div>
+<script>
+    document.getElementById("btnCopy").addEventListener("click", function () {
+        //Before we copy, we are going to select the text.
+        var text = document.getElementById("copy");
+        var selection = window.getSelection();
+        var range = document.createRange();
+        range.selectNodeContents(text);
+        selection.removeAllRanges();
+        selection.addRange(range);
+        //add to clipboard.
+        document.execCommand('copy');
+
+    });
+</script>

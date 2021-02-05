@@ -1,0 +1,183 @@
+﻿
+@{
+    ViewData["Title"] = "Works";
+    var i = 0;
+    var UID = (string)@ViewBag.UID;
+}
+@*href="/Developer/ToggleAllStatus?Id=@ViewBag.UID"*@
+@using FinalProjetTestOne.Helpers
+@using FinalProjetTestOne.Models
+
+<div class="card">
+
+    <div class="card-header card-header-success">
+        <h4 class="card-title font-weight-bold">Works</h4>
+        <p class="card-category"> Works for Developer</p>
+        <a onclick="ToggleAllStatus('@UID')" id="statusBtn" class="btn btn-outline-secondary bg-white text-success ml-auto mr-0" style="display:none; width:200px">Complete All</a>
+    </div>
+    <div class="card-body text-center">
+        <div class="table-responsive">
+            <div>
+                <table class="table table-hover">
+                    <thead class=" text-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var item in (List<Work>)ViewBag.works)
+                        {
+                            <tr>
+                                <td>@(i++)</td>
+                                <td>@item.Title</td>
+                                @if (item.workStatus == WorkStatus.Approved)
+                                {
+                                    <td id="toglle"><i class="btn btn-success text-white" style="cursor:not-allowed;pointer-events:none">Approved</i></td>
+                                }
+                                else if (item.workStatus == WorkStatus.Pendding)
+                                {
+                                    <td id="toglle"><i class="btn btn-danger text-white" style="cursor:not-allowed;pointer-events:none">Pendding</i></td>
+                                }
+                                else if (item.workStatus == WorkStatus.Completed)
+                                {
+                                    <td id="toglle"><i class="btn btn-outline-success text-success" style="cursor:not-allowed;pointer-events:none">Completed</i></td>
+                                }
+                                else
+                                {
+                                    <td class="text-white" id="toglle"><a class="btn btn-info" data-toggle="modal" data-target="#reject+@item.Id">Rejected</a> </td>
+                                }
+                                <td>
+
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#@item.Id@item.Title">
+                                        Details
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Button trigger modal -->
+<!-- Modal -->
+@foreach (var item in (List<Work>)ViewBag.works)
+{
+    <div class="modal fade" id="@item.Id@item.Title" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title d-flex" id="exampleModalCenterTitle"><i class="material-icons mr-2">title</i> <span>@item.Title</span> </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-primary alert-with-icon" data-notify="container">
+                        <span>Description</span>
+                        <i class="material-icons" data-notify="icon">
+                            description
+                        </i>
+                        @*<span data-notify="message">This is a notification with close button and icon.</span>*@
+                        <p>@item.Description</p>
+                    </div>
+                    <div class="btn-group-lg">
+                        <a href="/Developer/WrokPage?Id=@item.Id" class="btn btn-success">Work Page</a>
+                        <a href="/Developer/RemoveWork?Id=@item.Id" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="reject+@item.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title d-flex" id="exampleModalCenterTitle"><i class="material-icons mr-2">title</i> <span>Rejection Note</span> </h5>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-info alert-with-icon" data-notify="container">
+                        <i class="material-icons" data-notify="icon">
+                            comment
+                        </i>
+                        @*<span data-notify="message">This is a notification with close button and icon.</span>*@
+                        <p>@item.RecjectionNote</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        check();
+    });
+    const statusBtn = document.querySelector("#statusBtn");
+    const status = document.querySelectorAll("#toglle");
+    const statusArray = Array.from(status);
+    let checkedStatusArray = new Array();
+    const check = function () {
+        statusArray.forEach(e => {
+            if (e.innerText.toLowerCase() == "approved") {
+                checkedStatusArray.push(true)
+            }
+            if (e.innerText.toLowerCase() != "approved") {
+                return false;
+            }
+        });
+        if (statusArray.length === checkedStatusArray.length) {
+            displayToggleAll();
+        }
+    };
+    const displayToggleAll = function () {
+        statusBtn.style.display = "block";
+        ToggleAllStatus();
+    }
+    const ToggleAllStatus = function (id) {
+        $.ajax({
+            type: "POST",
+            url: "/Developer/ToggleAllStatus",
+            data: { Id: id },
+            success: function (response) {
+                statusBtn.addEventListener('click', () => {
+                    statusArray.forEach(e => {
+                        location.reload();
+                    });
+                    location.reload();
+                });
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    };
+
+</script>

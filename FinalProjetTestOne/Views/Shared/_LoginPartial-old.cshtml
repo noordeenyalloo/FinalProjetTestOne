@@ -1,0 +1,39 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+    <!-- <ul class="navbar-nav ml-auto ml-md-0">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw text-white"></i></a>
+            <div class="dropdown-menu dropdown-menu-right main-color" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="#">Settings</a>
+                <a class="dropdown-item" href="#">Activity Log</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Logout</a>
+            </div>
+        </li>
+    </ul> -->
+<ul class="navbar-nav ml-auto ml-md-0">
+    <li class="nav-item dropdown">
+
+
+        <a class="nav-link dropdown-toggle text-white" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw text-white"></i></a>
+        <div class="dropdown-menu dropdown-menu-right main-color" aria-labelledby="userDropdown">
+            @if (SignInManager.IsSignedIn(User))
+            {
+            <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+            <a class="dropdown-item">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="nav-link btn btn-link text-white">Logout</button>
+                </form>
+            </a>
+
+            }
+            else
+            {
+                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            }
+        </div>
+    </li>
+</ul>

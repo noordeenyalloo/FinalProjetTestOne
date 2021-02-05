@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@using FinalProjetTestOne.Models.Dto
+@using FinalProjetTestOne.Models.User
+@model UpdateProjectDto
+
+<div class="card form-card">
+    <div class="card-header card-header-success">
+        <h4 class="card-title">Edit Project</h4>
+        <p class="card-category"></p>
+    </div>
+    <div class="card-body">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data" class="border px-3 py-3">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="hidden" asp-for="ProjectManagerId" value="@ViewBag.userId" />
+                    <input type="hidden" asp-for="Id" />
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="text-primary" asp-for="ProjectName">ProjectName</label>
+                        <input type="text" asp-for="ProjectName" value="@ViewBag.Project.ProjectName" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="text-primary" asp-for="Description">Description</label>
+                        <input class="form-control" asp-for="Description" value="@ViewBag.Project.Description" id="Description" rows="3"></input>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="bmd-label-floating text-primary" for="team-leader">Team Leader</label>
+                        <select class="form-control" name="TeamLeaderId" id="team-leader">
+                            @foreach (var item in (List<TeamLeader>)ViewBag.TeamLeaders)
+                            {
+                                <option value="@item.Id">@item.FirstName  @item.LastName</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="bmd-label-floating text-primary" for="team-leader">Developers</label>
+                        <p class="text-muted">To select multiple press (ctrl) Key and left mouse click</p>
+                        <select class="form-control custom-select" name="DeveloperIds" multiple>
+                            @foreach (var item in (List<Developer>)ViewBag.Developers)
+                            {
+                                <option value="@item.Id">@item.FirstName  @item.LastName</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success pull-right">Edit</button>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>

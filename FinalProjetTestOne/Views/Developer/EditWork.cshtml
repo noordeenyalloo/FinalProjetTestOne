@@ -1,0 +1,38 @@
+﻿@using FinalProjetTestOne.Models.Dto
+@using FinalProjetTestOne.Models.User
+@using FinalProjetTestOne.Helpers
+@model UpdateWorkDto
+@{
+    ViewData["Title"] = "Create";
+
+}
+
+<div class="card form-card">
+    <div class="card-header card-header-success">
+        <h4 class="card-title">Edit Work</h4>
+        <p class="card-category"></p>
+    </div>
+    <div class="card-body">
+        <form asp-action="EditWork" method="post" enctype="multipart/form-data" class="border px-3 py-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="hidden" asp-for="Id" value="@ViewBag.Work.Id" />
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="bmd-label-floating text-primary" asp-for="Title">Title</label>
+                        <input type="text" asp-for="Title" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="bmd-label-floating text-primary" asp-for="Description">Descriptione</label>
+                        <textarea class="form-control" asp-for="Description" id="Description" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success pull-right">Edit</button>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>

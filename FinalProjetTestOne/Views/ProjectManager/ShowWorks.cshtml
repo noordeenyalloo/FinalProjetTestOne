@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewData["Title"] = "Works";
+    var i = 0;
+}
+
+@using FinalProjetTestOne.Helpers
+@using FinalProjetTestOne.Models
+
+
+<div class="card">
+    <div class="card-header card-header-success">
+        <h4 class="card-title font-weight-bold">Works</h4>
+        <p class="card-category"> Works for manager</p>
+    </div>
+    <div class="card-body text-center">
+        <div class="table-responsive">
+            <div>
+                <table class="table table-hover">
+                    <thead class=" text-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Developer</th>
+                            <th>Work Details</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Developer</th>
+                            <th>Work Details</th>
+                            <th>Status</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var item in (List<Work>)ViewBag.works)
+                        {
+                        <tr>
+                            <td>@(i++)</td>
+                            <td>@item.Title</td>
+                            <td>@item.Developer.FirstName</td>
+                            <td><a href="/ProjectManager/WorkPage?Id=@item.Id" class="btn btn-info text-white">Work Details</a></td>
+                            @if (item.workStatus == WorkStatus.Approved)
+                            {
+                                <td id="toglle"><i class="btn btn-success text-white" style="cursor:not-allowed;pointer-events:none">Approved</i></td>
+                            }
+                            else if (item.workStatus == WorkStatus.Pendding)
+                            {
+                                <td id="toglle"><i class="btn btn-danger text-white" style="cursor:not-allowed;pointer-events:none">Pendding</i></td>
+                            }
+                            else if (item.workStatus == WorkStatus.Completed)
+                            {
+                                <td id="toglle"><i class="btn btn-outline-success text-success" style="cursor:not-allowed;pointer-events:none">Completed</i></td>
+                            }
+                            else
+                            {
+                                <td class="text-white" id="toglle"><a class="btn btn-info" data-toggle="modal" data-target="#reject+@item.Id">Rejected</a> </td>
+                            }
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

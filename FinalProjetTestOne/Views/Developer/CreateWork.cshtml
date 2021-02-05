@@ -1,0 +1,45 @@
+﻿@using FinalProjetTestOne.Models.Dto
+@using FinalProjetTestOne.Models.User
+@using FinalProjetTestOne.Helpers
+@model CreateWorkDto
+@{
+    ViewData["Title"] = "Create";
+
+}
+<div class="card form-card">
+    <div class="card-header card-header-success">
+        <h4 class="card-title">Create Work</h4>
+        <p class="card-category"></p>
+    </div>
+    <div class="card-body">
+        <form asp-action="CreateWork" method="post" enctype="multipart/form-data" class="border px-3 py-3">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="hidden" asp-for="DeveloperId" value="@ViewBag.userId" />
+                    <input type="hidden" asp-for="SprintTaskId" value="@ViewBag.SprintTaskId" />
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="bmd-label-floating text-primary" asp-for="Title">Title</label>
+                        <input type="text" asp-for="Title" class="form-control" required />
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="bmd-label-floating text-primary" asp-for="Description">Descriptione</label>
+                        <textarea class="form-control" asp-for="Description" id="Description" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="form-label text-white btn btn-primary" for="fileUpload">Upload Works</label>
+                        <input type="file" name="theFile" class="form-control btn btn-success" id="fileUpload" draggable="true" size="100" required multiple />
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success pull-right">Create</button>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>

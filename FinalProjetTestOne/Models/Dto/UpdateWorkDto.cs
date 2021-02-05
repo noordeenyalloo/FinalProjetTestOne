@@ -1,0 +1,18 @@
+﻿using FinalProjetTestOne.Helpers;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace FinalProjetTestOne.Models.Dto
+{
+    public class UpdateWorkDto
+    {
+        public int Id { get; set; }
+        [Required]
+        public string Title { get; set; }
+        [Required]
+        public string Description { get; set; }
+    }
+}

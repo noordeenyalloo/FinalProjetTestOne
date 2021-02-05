@@ -1,0 +1,65 @@
+﻿@using FinalProjetTestOne.Models.User.UserDto
+@model CreateUserDto
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="card form-card">
+    <div class="card-header card-header-success">
+        <h4 class="card-title">Create Manager</h4>
+        <p class="card-category"></p>
+    </div>
+    <div class="card-body">
+        <form asp-action="CreateManager" method="post" enctype="multipart/form-data" class="border px-3 py-3">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-12">
+
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="bmd-label-floating text-primary" asp-for="FirstName">First Name</label>
+                        <input type="text" class="form-control" asp-for="FirstName" required>
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="bmd-label-floating text-primary" asp-for="LastName">Last Name</label>
+                        <input type="text" class="form-control" asp-for="LastName" required>
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="bmd-label-floating text-primary" asp-for="Age">Age</label>
+                        <input type="number" class="form-control" asp-for="Age" required>
+                        <span asp-validation-for="Age" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="bmd-label-floating text-primary" asp-for="UserName">Username</label>
+                        <input type="text" class="form-control" asp-for="UserName" required>
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="bmd-label-floating text-primary" asp-for="Email">Email</label>
+                        <input type="email" class="form-control" asp-for="Email" required>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="bmd-label-floating text-primary" asp-for="Password">Password</label>
+                        <input type="email" class="form-control" asp-for="Password" required>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success pull-right">Create</button>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Edit";
+    var developer = (Developer)ViewBag.developer;
+}
+
+@using FinalProjetTestOne.Models.User.UserDto
+@using FinalProjetTestOne.Models.User
+@model UpdateUserDto
+
+<div class="card form-card">
+    <div class="card-header card-header-success">
+        <h4 class="card-title">Edit Developer</h4>
+        <p class="card-category"></p>
+    </div>
+    <div class="card-body">
+        <form asp-action="EditDeveloper" method="post" enctype="multipart/form-data" class="border px-3 py-3">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" value="@developer.Id" />
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="bmd-label-floating text-primary" asp-for="FirstName">First Name</label>
+                        <input type="text" asp-for="FirstName" class="form-control" value="@developer.FirstName" required />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="LastName">Last Name</label>
+                        <input type="text" class="form-control" asp-for="LastName" value="@developer.LastName" placeholder="Please Enter Last Name">
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="Age">Age</label>
+                        <input type="number" class="form-control" asp-for="Age" value="@developer.Age" placeholder="Please Enter Age Name">
+                        <span asp-validation-for="Age" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="UserName">UserName</label>
+                        <input type="text" class="form-control" asp-for="UserName" value="@developer.UserName" placeholder="Please Enter UserName">
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="Email">Email</label>
+                        <input type="email" class="form-control" asp-for="Email" value="@developer.Email" placeholder="Please Enter Email">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success pull-right">Edit</button>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>

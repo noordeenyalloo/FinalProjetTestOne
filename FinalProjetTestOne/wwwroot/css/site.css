@@ -1,0 +1,305 @@
+/*  */
+body {
+    background-color: #f7f7f7;
+}
+
+/*  */
+/* Main Navigation Custom */
+.c-main-nav {
+    background: #433d49da;
+    color: #ffffff !important;
+}
+.sb-sidenav-gradient {
+    background: #4B4453;
+    color: #fff;
+}
+.sb-sidenav-gradient .sb-sidenav-menu .sb-sidenav-menu-heading {
+    color: #00C0A3;
+}
+.sb-sidenav-gradient .sb-sidenav-menu .nav-link {
+    color: #00C0A3;
+}
+.sb-sidenav-gradient .sb-sidenav-menu .nav-link .sb-nav-link-icon {
+    color: #ffffff;
+}
+.sb-sidenav-gradient .sb-sidenav-menu .nav-link .sb-sidenav-collapse-arrow {
+    color: #ffffff;
+}
+.sb-sidenav-gradient .sb-sidenav-menu .nav-link:hover {
+    color: #69fde7ec;
+}
+.sb-sidenav-gradient .sb-sidenav-menu .nav-link.active {
+    color: #43ffe3ec;
+}
+.sb-sidenav-gradient .sb-sidenav-menu .nav-link.active .sb-nav-link-icon {
+    color: #00C0A3;
+}
+.sb-sidenav-gradient .sb-sidenav-footer {
+    background-color: #433d49da;
+} 
+.btn-custom {
+    background-color: #00C0A3;
+} 
+.main-color {
+    background-color: #4B4453;
+}
+.main-color a{
+    color: #fff;
+}
+.main-color > a:hover {
+    background-color: #59555e;
+    color: #69fde7ec;
+}
+
+/* #Main Navigation Custom */
+
+/* Main Card Custom */
+.card-footer {
+    transition: all 950ms;
+    -webkit-transition: all 950ms;
+    -moz-transition: all 950ms;
+    -ms-transition: all 950ms;
+    -o-transition: all 950ms;
+}
+.c-card {
+    position: relative;
+    transition: all 750ms;
+    -webkit-transition: all 750ms;
+    -moz-transition: all 750ms;
+    -ms-transition: all 750ms;
+    -o-transition: all 750ms;
+}
+.c-card > * {
+    z-index: 100;
+}
+.c-card a {
+    color: #000;
+    text-decoration: none;
+    transition: all 950ms;
+}
+.c-card:hover > *,.c-card:hover .card-footer >*{
+    color: #fff !important;
+}
+.c-card:hover {
+    color: #fff !important;
+}
+.c-card::after {
+    position: absolute;
+    content: '';
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 0;
+    transition: all 750ms;
+}
+.c-card:hover::after {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* #Main Card Custom */
+
+/* Form Custom */
+
+form.custom-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #ffffffc7;
+    color: rgb(0, 0, 0);
+    font-weight: 400;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    box-shadow: 0 2px 4px 0 #4b44537c, 0 3px 10px 0 #4b44537c;
+}
+
+
+/* input#file-upload-button {
+    background-color: aqua !important;
+} */
+/* input[type="file"]:c */
+/* textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {   
+  border-color: rgba(126, 239, 104, 0.8) !important;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6);
+  outline: 0 none;
+} */
+.form-control:focus {
+    border-color: rgba(126, 239, 104, 0.8);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6);
+}
+
+/* Custom Select */
+.custom-select {
+    position: relative;
+    font-family: Arial;
+  }
+  
+  .custom-select select {
+    display: none; /*hide original SELECT element:*/
+  }
+  
+  .select-selected {
+    background-color: DodgerBlue;
+  }
+  
+  /*style the arrow inside the select element:*/
+  .select-selected:after {
+    position: absolute;
+    content: "";
+    top: 14px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: #fff transparent transparent transparent;
+  }
+  
+  /*point the arrow upwards when the select box is open (active):*/
+  .select-selected.select-arrow-active:after {
+    border-color: transparent transparent #fff transparent;
+    top: 7px;
+  }
+  
+  /*style the items (options), including the selected item:*/
+  .select-items div,.select-selected {
+    color: #ffffff;
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  /*style items (options):*/
+  .select-items {
+    position: absolute;
+    background-color: DodgerBlue;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+  }
+  
+  /*hide the items when the select box is closed:*/
+  .select-hide {
+    display: none;
+  }
+  
+  .select-items div:hover, .same-as-selected {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+/* #Form Custom */
+
+
+
+.btn-green {
+    position: relative;
+    background-color: #00C0A3;
+    color: #fff;
+    width: 40%;
+    height: 50px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    /* overflow: hidden; */
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+}
+
+.btn-green:hover {
+    /* background-color: #009e86; */
+    box-shadow: 0 3px 6px 2px #02fdd8, 0 6px 12px 2px #02fdd8;
+}
+
+.btn-green-c {
+    background-color: #00C0A3 !important;
+    color: #fff;
+    letter-spacing: 0.5px;
+    /* overflow: hidden; */
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+}
+
+.btn-green-c:hover {
+    /* background-color: #009e86; */
+    box-shadow: 0 2px 4px 1px #02fdd8, 0 3px 6px 1px #02fdd8;
+}
+
+
+
+/*  Testing glassy */
+.blurred-box {
+    position: relative;
+    background: inherit;
+    overflow: hidden;
+}
+
+.blurred-box:after {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 3px;
+    background: -webkit-linear-gradient(top, rgba(255,255,255,0.75) 0, rgba(255,255,255,0.75) 170px, rgba(48, 45, 53, 0.8) 170px, rgba(48, 45, 53, 0.8) 100%);
+}
+    .blurred-box::before {
+        content: "";
+        display: block;
+        position: absolute;
+        z-index: -1;
+        top: -30px;
+        left: -30px;
+        right: -30px;
+        bottom: -30px;
+        border-radius: 3px;
+        /*background: linear-gradient(#2cd9bf, #2cd9bf 40%, #02fdd8 3%, #02fdd8);*/
+        filter: blur(10px);
+    }
+
+.table-light {
+    opacity: 0.94;
+
+}
+
+.green-shadow {
+    color: #00C0A3 !important;
+    /* overflow: hidden; */
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+}
+
+    .green-shadow:hover {
+        /* background-color: #009e86; */
+        box-shadow: 0 2px 4px 1px #02fdd8, 0 3px 6px 1px #02fdd8;
+    }

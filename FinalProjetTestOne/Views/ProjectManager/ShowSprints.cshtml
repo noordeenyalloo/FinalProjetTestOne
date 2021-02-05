@@ -1,0 +1,107 @@
+﻿@{
+    ViewData["Title"] = "Show";
+    var i = 0;
+}
+
+@using FinalProjetTestOne.Helpers
+@using FinalProjetTestOne.Models
+
+<div class="card">
+    <div class="card-header card-header-success">
+        <h4 class="card-title font-weight-bold">Sprints</h4>
+        <p class="card-category"> Sprints for manager</p>
+    </div>
+    <div class="card-body text-center">
+        <div class="table-responsive">
+            <div>
+                <table class="table table-hover">
+                    <thead class=" text-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Project Name</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Project Name</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var item in (List<Sprint>)ViewBag.sprints)
+                        {
+                            <tr>
+                                <td>@(i++)</td>
+                                <td>@item.Title</td>
+                                <td>@item.Project.ProjectName</td>
+                                @if (Status.Completed == item.status)
+                                {
+                                    <td id="toglle"><i class="btn btn-outline-success text-success" style="cursor:not-allowed;pointer-events:none">Completed</i></td>
+                                }
+                                else
+                                {
+                                    <td id="toglle"><i class="btn btn-danger text-white" style="cursor:not-allowed;pointer-events:none">Pendding</i></td>
+                                }
+
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#@item.Id@item.Title">
+                                        Details
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@foreach (var item in (List<Sprint>)ViewBag.sprints)
+{
+    <div class="modal fade" id="@item.Id@item.Title" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">@item.Title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-primary alert-with-icon" data-notify="container">
+                        <span>Description</span>
+                        <i class="material-icons" data-notify="icon">
+                            description
+                        </i>
+                        @*<span data-notify="message">This is a notification with close button and icon.</span>*@
+                        <p>@item.Description</p>
+                    </div>
+                    <div class="alert alert-warning alert-with-icon" data-notify="container">
+                        <span>Sprint Duration</span>
+                        <i class="material-icons" data-notify="icon">
+                            history_toggle_off
+                        </i>
+                        <ul>
+
+                            <li>From : @item.StartDate</li>
+                            <li>To : @item.EndDate</li>
+                        </ul>
+                    </div>
+                    <div class="btn-group-raised">
+                        <a href="/ProjectManager/ShowTasks?Id=@item.Id" class="btn btn-outline-success">Show Tasks</a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

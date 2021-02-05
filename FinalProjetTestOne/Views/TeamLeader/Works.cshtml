@@ -1,0 +1,143 @@
+﻿
+@{
+    ViewData["Title"] = "Works";
+    var i = 0;
+    var works = (List<Work>)ViewBag.works;
+}
+
+@using FinalProjetTestOne.Helpers
+@using FinalProjetTestOne.Models
+
+
+@if (works.Count() > 0)
+{
+    <div class="card">
+        <div class="card-header card-header-success">
+            <h4 class="card-title font-weight-bold">Tasks</h4>
+            <p class="card-category"> Developer Tasks</p>
+        </div>
+        <div class="card-body text-center">
+            <div class="table-responsive">
+                <div>
+                    <table class="table table-hover">
+                        <thead class=" text-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Developer</th>
+                                <th>Work Details</th>
+                                <th>Status</th>
+                                <th></th>
+
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Developer</th>
+                                <th>Work Details</th>
+                                <th>Status</th>
+                                <th></th>
+
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach (var item in (List<Work>)ViewBag.works)
+                            {
+                                <tr>
+                                    <td>@(i++)</td>
+                                    <td>@item.Title</td>
+                                    <td>@item.Developer.FirstName</td>
+                                    <td><a href="/TeamLeader/WrokPage?Id=@item.Id" class="btn btn-info">Work Details</a></td>
+                                    @if (item.workStatus == WorkStatus.Approved)
+                                    {
+                                        <td id="toglle"><i class="btn btn-success text-white" style="cursor:not-allowed;pointer-events:none">Approved</i></td>
+                                    }
+                                    else if (item.workStatus == WorkStatus.Pendding)
+                                    {
+                                        <td id="toglle"><i class="btn btn-danger text-white" style="cursor:not-allowed;pointer-events:none">Pendding</i></td>
+                                    }
+                                    else if (item.workStatus == WorkStatus.Completed)
+                                    {
+                                        <td id="toglle"><i class="btn btn-outline-success text-success" style="cursor:not-allowed;pointer-events:none">Completed</i></td>
+                                    }
+                                    else
+                                    {
+                                        <td class="text-white" id="toglle"><a class="btn btn-info" data-toggle="modal" data-target="#reject+@item.Id">Rejected</a> </td>
+                                    }
+                                    <td class="d-flex">
+                                        <a class="btn btn-success text-white" onclick="ToggleWorkStatus(@item.Id)">Toggle Sprint</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    @foreach (var item in (List<Work>)ViewBag.works)
+    {
+
+        <div class="modal fade" id="reject+@item.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title d-flex" id="exampleModalCenterTitle"><i class="material-icons mr-2">title</i> <span>Rejection Note</span> </h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-info alert-with-icon" data-notify="container">
+                            <i class="material-icons" data-notify="icon">
+                                comment
+                            </i>
+                            @*<span data-notify="message">This is a notification with close button and icon.</span>*@
+                            <p>@item.RecjectionNote</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            ToggleWorkStatus = function (id) {
+                alert("Onclick Done");
+                $.ajax({
+                    type: "POST",
+                    url: "/TeamLeader/ToggleWorkStatus",
+                    data: { Id: id },
+                    success: function (response) {
+                        location.reload();
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            }
+        });
+    </script>
+}
+else
+{
+    <div class="card mb-3">
+        <img class="card-img-top" src="https://intsguidehome.files.wordpress.com/2020/05/assignments720-2.png">
+        <div class="card-body">
+            <h4 class="card-title text-success">Dear Mr: @User.Identity.Name</h4>
+            <p class="card-text">The Developer hasn't uploaded any work yet please check later</p>
+            <p class="card-text"><small class="text-muted">@DateTime.Now</small></p>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,110 @@
+﻿@using FinalProjetTestOne.Helpers
+@using FinalProjetTestOne.Models.User
+
+@{
+    ViewData["Title"] = "Show";
+    var managers = (List<ProjectManager>)ViewBag.managers;
+    var developers = (List<Developer>)ViewBag.devs;
+    var teamLeaders = (List<TeamLeader>)ViewBag.leaders;
+    var i = 0;
+}
+
+<div class="card">
+    <div class="card-header card-header-success">
+        <h4 class="card-title font-weight-bold">Users</h4>
+        <p class="card-category">Users table</p>
+    </div>
+    <div class="card-body text-center">
+        <div class="table-responsive">
+            <div>
+                <table class="table table-hover" id="dataTable">
+                    <thead class=" text-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Role</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Username</th>
+                            <th>Age</th>
+                            <th>Edit</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Role</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Username</th>
+                            <th>Age</th>
+                            <th>Edit</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+
+                        @foreach (var item in managers)
+                        {
+                            <tr>
+                                <td>@(i++)</td>
+                                <td>Manager</td>
+                                <td>@item.FirstName</td>
+                                <td>@item.LastName</td>
+                                <td>@item.Email</td>
+                                <td>@item.UserName</td>
+                                <td>@item.Age</td>
+                                <td class="text-warning">
+                                    <a href="/Admin/EditManager?Id=@item.Id" class="btn btn-outline-warning" style="cursor:pointer">
+                                        Edit
+                                    </a>
+                                </td>
+                                <td></td>
+                            </tr>
+                        }
+                        @foreach (var item in developers)
+                        {
+                    <tr>
+                        <td>@(i++)</td>
+                        <td>Developers</td>
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.Email</td>
+                        <td>@item.UserName</td>
+                        <td>@item.Age</td>
+                        <td>
+                            <a href="/Admin/EditDeveloper?Id=@item.Id" class="btn btn-outline-warning">
+                                Edit
+                            </a>
+                        </td>
+                        <td class="text-warning">
+                        </td>
+                    </tr>
+                        }
+                        @foreach (var item in teamLeaders)
+                        {
+                    <tr>
+                        <td>@(i++)</td>
+                        <td>TeamLeader</td>
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.Email</td>
+                        <td>@item.UserName</td>
+                        <td>@item.Age</td>
+                        <td class="text-warning">
+                            <a href="/Admin/EditTeamLeader?Id=@item.Id" class="btn btn-outline-warning">
+                                Edit
+                            </a>
+                        </td>
+                        <td></td>
+
+                    </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

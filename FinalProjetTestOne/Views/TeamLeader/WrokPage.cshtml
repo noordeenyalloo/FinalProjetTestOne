@@ -1,0 +1,121 @@
+﻿@using FinalProjetTestOne.Models.Dto
+@using FinalProjetTestOne.Models.User
+@using FinalProjetTestOne.Helpers
+@model RejectDto
+@{
+    ViewData["Title"] = "WrokPage";
+    var work = (Work)ViewBag.Work;
+}
+
+<style>
+    img {
+        height: 150px;
+        width: 100%;
+    }
+
+    .item {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .item-card {
+        transition: 0.5s;
+    }
+
+    .item-card-title {
+        font-size: 15px;
+        transition: 1s;
+        cursor: pointer;
+    }
+
+    .work:hover {
+        transform: scale(1.03);
+        box-shadow: 10px 10px 15px rgba(0,0,0,0.3);
+    }
+
+    .work-text {
+        height: 80px;
+    }
+
+    .work::before, .work::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        transform: scale3d(0, 0, 1);
+        transition: transform .3s ease-out 0s;
+        background: rgba(255, 255, 255, 0.1);
+        content: '';
+        pointer-events: none;
+    }
+
+    .work::before {
+        transform-origin: left top;
+    }
+
+    .work::after {
+        transform-origin: right bottom;
+    }
+
+    .work:hover::before, .card:hover::after, .card:focus::before, .card:focus::after {
+        transform: scale3d(1, 1, 1);
+    }
+</style>
+
+
+<ol class="breadcrumb mb-4 mt-4">
+    <li class="breadcrumb-item"><a href="/Home/Index">Dashboard</a></li>
+    <li class="breadcrumb-item active">work</li>
+</ol>
+
+
+
+<div class="card form-card item-card card-block work">
+    <div class="card-header">
+        <h5 class="card-title  mt-3 mb-3">@work.Title</h5>
+        <hr />
+        <img src="https://static.pexels.com/photos/262550/pexels-photo-262550.jpeg" alt="Photo of sunset">
+    </div>
+    <div class="card-body">
+        <span class="text-success">Description : </span>
+        <p class="card-text ml-3">@work.Description</p>
+    </div>
+    <div class="card-footer d-flex justify-content-between">
+        <a href="/TeamLeader/GetFiles?Id=@work.Id" target="_blank" class="btn btn-success text-white">Download Materials</a>
+        <a id="reject" class="btn btn-danger">Reject</a>
+    </div>
+
+</div>
+
+
+
+
+
+<div class="card form-card" style="display:none;visibility:hidden" id="rejectForm" >
+
+    <div class="card-body">
+        <form asp-action="WrokPage" method="post" class="border px-3 py-3">
+            <div class="">
+                <input type="hidden" asp-for="Id" value="@work.Id" />
+
+                <div class="form-group">
+                    <label asp-for="RecjectionNote">Rejection Note</label>
+                    <input type="text" asp-for="RecjectionNote" class="form-control" placeholder="Please Enter Project Note">
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-green">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    const reject = document.querySelector("#reject");
+    const rejectForm = document.querySelector("#rejectForm");
+    reject.addEventListener('click', () => {
+        rejectForm.style.visibility = 'visible';
+        rejectForm.style.display = 'block';
+    });
+
+</script>

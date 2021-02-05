@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewData["Title"] = "ShowTasks";
+}
+
+
+@{
+    ViewData["Title"] = "Tasks";
+    var i = 0;
+}
+
+@using FinalProjetTestOne.Helpers
+@using FinalProjetTestOne.Models
+
+<div class="card">
+    <div class="card-header card-header-success">
+        <h4 class="card-title font-weight-bold">Tasks</h4>
+        <p class="card-category"> Taks for manager</p>
+    </div>
+    <div class="card-body text-center">
+        <div class="table-responsive">
+            <div>
+                <table class="table table-hover">
+                    <thead class=" text-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Developer</th>
+                            <th>Status</th>
+
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Developer</th>
+                            <th>Status</th>
+
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var item in (List<SprintTask>)ViewBag.Tasks)
+                        {
+                            <tr>
+                                <td>@(i++)</td>
+                                <td>@item.Title</td>
+                                <td>@item.Developer.FirstName  @item.Developer.LastName</td>
+
+
+                                @if (Status.Completed == item.status)
+                                {
+                                    <td id="toglle"><i class="btn btn-outline-success text-success" style="cursor:not-allowed;pointer-events:none">Completed</i></td>
+                                }
+                                else
+                                {
+                                    <td id="toglle"><i class="btn btn-danger text-white" style="cursor:not-allowed;pointer-events:none">Pendding</i></td>
+                                }
+                                <td>
+                                    <a href="/ProjectManager/ShowWorks?Id=@item.Id&&devId=@item.DeveloperId" class="btn btn-outline-success">Show Works</a>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#@item.Id@item.Title">
+                                        Details
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Button trigger modal -->
+<!-- Modal -->
+@foreach (var item in (List<SprintTask>)ViewBag.Tasks)
+{
+    <div class="modal fade" id="@item.Id@item.Title" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">@item.Title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-primary alert-with-icon" data-notify="container">
+                        <span>Description</span>
+                        <i class="material-icons" data-notify="icon">
+                            description
+                        </i>
+                        @*<span data-notify="message">This is a notification with close button and icon.</span>*@
+                        <p>@item.Description</p>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

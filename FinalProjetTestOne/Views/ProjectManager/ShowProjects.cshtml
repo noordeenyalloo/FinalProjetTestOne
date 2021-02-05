@@ -1,0 +1,166 @@
+﻿@{
+    ViewData["Title"] = "Show";
+    var i = 0;
+    var projects = (List<Project>)@ViewBag.P;
+}
+
+@using FinalProjetTestOne.Helpers
+@using FinalProjetTestOne.Models
+@if (projects.Count() > 0)
+{
+    <div class="card">
+        <div class="card-header card-header-success">
+            <h4 class="card-title font-weight-bold">Project</h4>
+            <p class="card-category"> Projects for manager</p>
+        </div>
+        <div class="card-body text-center">
+            <div class="table-responsive">
+                <div>
+                    <table class="table table-hover" id="dataTable">
+                        <thead class=" text-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Ptoject Name</th>
+                                <th>TeamLeader</th>
+                                <th>Developers</th>
+                                <th>Status</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>Ptoject Name</th>
+                                <th>TeamLeader</th>
+                                <th>Developers</th>
+                                <th>Status</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach (var item in (List<Project>)@ViewBag.P)
+                            {
+                                <tr>
+                                    <td>@(i++)</td>
+                                    <td>@item.ProjectName</td>
+                                    <td>@item.TeamLeader.FirstName @item.TeamLeader.LastName</td>
+                                    <td>
+                                        @foreach (var dev in item.ProjectDevelopers)
+                                        {
+                                            <span class="card-text ml-1">
+                                                <small class="text-dark font-weight-bold">{ @dev.Developer.FirstName.ToUpper() @dev.Developer.LastName.ToUpper() }</small>
+                                            </span>
+                                        }
+                                    </td>
+                                    @if (Status.Completed == item.status)
+                                    {
+                                        <td id="toglle"><i class="btn btn-outline-success text-success" style="cursor:not-allowed;pointer-events:none">Completed</i></td>
+                                    }
+                                    else
+                                    {
+                                        <td id="toglle"><i class="btn btn-danger text-white" style="cursor:not-allowed;pointer-events:none">Pendding</i></td>
+                                    }
+                                    <td class="d-flex justify-content-between">
+                                        <a href="/ProjectManager/Edit?Id=@item.Id" class="btn btn-outline-danger">Edit Project</a>
+                                        <a onclick="ToggleStatus(@item.Id)" id="ToggleStatus" class="btn btn-success text-white">Toggle Status</a>
+                                    </td>
+                                    @*<td>
+                                            <a href="/ProjectManager/ShowSprints?Id=@item.Id" class="btn btn-success">Show sprints</a>
+                                        </td>*@
+                                    <td>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#@item.Id@item.ProjectName">
+                                            Details
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    @foreach (var item in (List<Project>)ViewBag.P)
+    {
+        <div class="modal fade" id="@item.Id@item.ProjectName" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">@item.ProjectName</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-primary alert-with-icon" data-notify="container">
+
+                            <span id="#sId">Description</span>
+                            <i class="material-icons" data-notify="icon">
+                                description
+                            </i>
+                            <p>@item.Description</p>
+                        </div>
+                        <div class="btn-group-raised">
+                            @if (item.Sprints.Count() > 0)
+                            {
+                                <a href="/ProjectManager/ShowSprints?Id=@item.Id" class="btn btn-success">Show sprints</a>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            ToggleStatus = function (id) {
+                $.ajax({
+                    type: "POST",
+                    url: "/ProjectManager/ToggleStatus",
+                    data: { Id: id },
+                    success: function (response) {
+                        $('#pendding').html(response.data);
+                        location.reload();
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            }
+        });
+    </script>
+}
+else
+{
+    <div class="card card-nav-tabs text-center">
+        <div class="card-header card-header-danger">
+            Alert
+        </div>
+        <div class="card-body">
+            <h4 class="card-title font-weight-bolder">Dear Mr: @User.Identity.Name</h4>
+            <p class="card-text">You Dont have any project yet. Please press the botton below to create project.</p>
+            <a asp-controller="ProjectManager" asp-action="Create" class="btn btn-danger">Create Project</a>
+        </div>
+        <div class="card-footer text-muted">
+            
+        </div>
+    </div>
+}
